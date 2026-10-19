@@ -9,6 +9,24 @@ build on this one project, each working in a different module.
 | 2B, Wire It Up | Streamlit `session_state`, input validation, dataclasses, recurring dates | `sessions.py`, `app.py` |
 | 3B, Rank & Explain | CSV loading, weighted scoring that returns reasons, ranking, a data-flow diagram | `ranking.py`, `data/study_spots.csv`, `diagram.mmd` |
 
+## My Rank & Explain work (Tinker 3B)
+
+The **Find a Study Spot** tab loads campus study spots from a CSV, scores each one against a student profile, ranks the whole collection, and explains each result.
+
+- `load_study_spots()` reads `data/study_spots.csv` with `csv.DictReader` and converts `distance_miles` to float and `seats_available` to int.
+- `score_study_spot()` awards points for noise, distance, and seats, and returns a score plus a list of reasons.
+- `rank_study_spots()` scores every spot, sorts with `sorted(..., reverse=True)`, and keeps the top k.
+- `format_results()` prints one explained line per result.
+- `reflection.md` covers how my weighting could create a filter bubble.
+- `diagram.mmd` is a Mermaid flowchart of the pipeline: CSV, scoring, ranking, formatted output.
+
+Run it:
+
+```bash
+python ranking.py
+python -m streamlit run app.py
+```
+
 ## Setup
 
 Fork this repo, then clone **your fork**:
@@ -59,6 +77,7 @@ pytest
 - `ranking.py` — study-spot ranking, the Tinker 3B surface
 - `data/study_spots.csv` — sample data for ranking
 - `diagram.mmd` — Mermaid data-flow diagram, completed in Tinker 3B
+- `reflection.md` — written reflection on bias in the scoring weights
 - `test_scoring.py` — starting point for your own tests
 
 Your instructor will tell you which tinker you're on. Follow the activity on the course portal.
